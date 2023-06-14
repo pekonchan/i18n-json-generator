@@ -1,0 +1,19 @@
+{
+  "name": "i18n-json-generator",
+  "version": "1.0.0",
+  "description": "This is a tool that collects terms from javascript files that need to be internationalized according to specific rules. The collected terms are generated into json files in each language.",
+  "main": "lib/main.js",
+  "scripts": {
+    "example": "cd example && node start.js",
+    "example2": "cd example && node start.js --lang=en,ja --dir=i18n --entry=dist/**/test2.js --name=$lang"
+  },
+  "keywords": ["i18n", "translation", "json"],
+  "author": "pekonchan",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/parser": "^7.22.5",
+    "@babel/traverse": "^7.22.5",
+    "glob": "^10.2.7",
+    "minimist": "^1.2.8"
+  }
+}
