@@ -1,19 +1,20 @@
 # i18n-json-generator
-指定javascript文件（可多个，可某个目录下所有js文件等），从这些js文件中按照指定的国际化转换函数，抽取函数里需要国际化的词条，生成json文件，且按照指定的需要国际化的语言，生成对应语言的词条json模板
+Specify javascript files (can be multiple, can be all js files in a directory, etc.), from these js files according to the specified internationalization conversion function, extract the need for internationalization in the function, generate json files, and according to the specified need to internationalize the language, generate the corresponding language json template
 
-如你的代码中已经写了国际化的方法，如
+If you have written internationalization methods in your code, such as
+
 ```js
-// $t是国际化转换函数，用来把“你好世界”替换成各个语言的
+// $t is the internationalization conversion function used to replace "你好世界" with each language
 const helloWord = $t('你好世界')
 ```
-使用了该工具，可以将你的代码中所有`$t`方法中提取需要国际化的词条。目前遵循以下规则：
-- $t('你好世界') ：会把第一个参数提取出来，作为语言配置文件的key和value
-- $t('你好{0}', [变量1, 变量2, ...]) ：会把第一个参数提取出来，作为语言配置文件的key和value
-- $t(['hi', '嗨']) ：会把第一个参数数组里的第一个元素提取出来，作为语言配置文件的key，第二个元素作为对应的value
+Using this tool, you can extract the terms that need to be internationalized from all the '$t' methods in your code. The following rules are currently followed:
+- $t('你好世界') ：The first parameter is extracted as the key and value of the language configuration file
+- $t('你好{0}', [变量1, 变量2, ...]) ：The first parameter is extracted as the key and value of the language configuration file
+- $t(['hi', '嗨']) ：The first element of the first parameter array is extracted as the key of the language configuration file, and the second element as the corresponding value
 
-> 上述提取出来作为key的前提条件是必须是个字符串，若第一个参数是个变量或者方法等，是不会提取出来的。
+> The prerequisite for extracting the key above is that it must be a string. If the first parameter is a variable or a method, etc., it will not be extracted.
 
-基于上述规则，默认生成的本地词条配置json文件是：
+Based on the above rules, the default generated local term configuration json file is:
 ```json
 {
   "你好世界": "你好世界",
@@ -21,7 +22,7 @@ const helloWord = $t('你好世界')
   "hi": "嗨"
 }
 ```
-若你配置了需要国际化的语言，如英文、德文，同样会复制了一份上述json文件（一个语言一份），但是value值都是空的，需要人工翻译并补充上去。
+If you configure a language that requires internationalization, such as English or German, you will also copy the above json file (one for each language), but the value values are empty and need to be translated and supplemented.
 ```json
 {
   "你好世界": "",
@@ -29,7 +30,7 @@ const helloWord = $t('你好世界')
   "hi": ""
 }
 ```
-当然该工具还提供了各自自定义的配置，可让你自由配置提取的情况。
+Of course, the tool also provides their own custom configuration, allowing you to freely configure the extraction of the case.
 
 ## Install
 ```
@@ -41,61 +42,61 @@ yarn add i18n-json-generator -D
 ```
 
 ## Usage
-创建一个js文件，里面包含以下代码
+Create a js file that contains the following code
 ```js
 // start.js
 const { i18nJsonConfig } = require('i18n-json-generator');
 i18nJsonConfig();
 ```
-然后在`package.json`里添加`npm script`命令，如：
+Then add 'npm script' command to 'package.json', such as:
 ```
 "scripts": {
     "createjson": "node start.js"
   }
 ```
 
-在任何不提供配置项的情况下，默认是在你的项目根目录下的`dist`文件夹里找所有`js`文件，然后从这些文件中提取词条生成json文件，生成目录是在项目根目录下的`lang`目录中（没有则自动新建），
+In any case that does not provide configuration items, the default is to find all the 'js' files in the' dist 'folder under the root directory of your project, and then extract the terms from these files to generate json files, the generated directory is in the' lang 'directory under the root directory of the project (if there is no new).
 
-而本地词条json默认名字为`locale.json`，默认也会生成一个英文配jsonn——`en-US.json`
+The default name of the local entry json is `locale.json`, which also generates a jsonn -- `en-US.json` by default
 
-默认是根据`$t`函数来找到要提取的词条。
+The default is to find the term to extract according to the `$t` function.
 
-本工程中的`example`目录为示例demo，相当于用户的项目根目录。大家可参考一下使用情况。
+The `example` directory in this project is the example demo, which is equivalent to the user's project root directory. We can refer to the use of the situation.
 
-当然上述默认配置，可以用户自定义更改
+Of course, the above default configuration can be customized
 
 ## Setting
-提供两种方式进行修改默认配置
-1. 命令行参数
-2. 配置文件
+There are two ways to modify the default configuration
+1. CLI
+2. config file
 
-#### 命令行参数
-在`package.json`里添加`npm script`命令，如：
+#### CLI
+Add 'npm script' to package.json, such as:
 ```
 "scripts": {
     "createjson": "node start.js --lang=en,ja --dir=i18n --entry=dist/**/test2.js --hanlder=$lang --localeName=zh-CN"
   }
 ```
-具体参数解释如下：
+The specific parameters are explained as follows:
 ```
-lang  除了本地词条json外，还需要生成哪些国家语言的json文件，以英文逗号隔开
-dir 生成的json文件放在哪个目录下
-entry 按照什么样的规则来匹配到需要抽取词条的文件，这里是用glob匹配规则写法
-handler 国际化转换函数名，即从什么函数中抽取词条
-localeName 生成的本地词条json名字
+lang : In addition to local json entries, you need to generate json files in which languages, separated by commas (,)
+dir : The directory in which the generated json file is stored
+entry : What rules are used to match the file that needs to extract the terms, in this case using glob matching rules
+handler :  Internationalized conversion function name, i.e., from what function
+localeName :  Generated local term json name
 ```
-#### 配置文件
-在项目根目录下创建一个名为`i18n-generator.config.js`的文件。编写内容如下：
+#### config file
+Create a file named `i18n-generator.config.js` in the project root directory. The content is as follows:
 ```js
 module.exports = {
-    lang: ['en-US'], // 除了本地词条json外，还需要生成哪些国家语言的json文件，以英文逗号隔开
+    lang: ['en-US'], // In addition to local json entries, you need to generate json files in which languages
     output: {
-        dir: 'lang' // 生成的json文件放在哪个目录下
+        dir: 'lang' // The directory in which the generated json file is stored
     },
-    entry: 'dist/**/*.js', // 按照什么样的规则来匹配到需要抽取词条的文件，这里是用glob匹配规则写法
+    entry: 'dist/**/*.js', // What rules are used to match the file that needs to extract the terms, in this case using glob matching rules
     handler: {
-        name: '$t' // 国际化转换函数名，即从什么函数中抽取词条
+        name: '$t' // Internationalized conversion function name, i.e., from what function
     },
-    localeName: 'zh-CN' // 生成的本地词条json名字
+    localeName: 'zh-CN' // Generated local term json name
 };
 ```
