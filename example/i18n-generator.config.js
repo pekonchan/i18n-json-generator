@@ -6,5 +6,6 @@ module.exports = {
     entry: 'dist/**/*.js',
     handler: {
         name: '$t'
-    }
+    },
+    localeName: 'zh-CN'
 };
