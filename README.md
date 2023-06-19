@@ -1,4 +1,7 @@
 # i18n-json-generator
+
+- [中文文档](https://github.com/pekonchan/i18n-json-generator/tree/main/docs/readme-zh.md)
+
 Specify javascript files (can be multiple, can be all js files in a directory, etc.), from these js files according to the specified internationalization conversion function, extract the need for internationalization in the function, generate json files, and according to the specified need to internationalize the language, generate the corresponding language json template
 
 If you have written internationalization methods in your code, such as
