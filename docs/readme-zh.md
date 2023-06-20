@@ -1,5 +1,5 @@
 # i18n-json-generator
-指定javascript文件（可多个，可某个目录下所有js文件等），从这些js文件中按照指定的国际化转换函数，抽取函数里需要国际化的词条，生成json文件，且按照指定的需要国际化的语言，生成对应语言的词条json模板
+指定`javascript`文件（可多个，可某个目录下所有js文件等），从这些js文件中按照指定的国际化转换函数，抽取函数里需要国际化的词条，生成`json`文件，且按照指定的需要国际化的语言，生成对应语言的词条json模板
 
 如你的代码中已经写了国际化的方法，如
 ```js
@@ -48,11 +48,19 @@ const { i18nJsonConfig } = require('i18n-json-generator');
 i18nJsonConfig();
 ```
 然后在`package.json`里添加`npm script`命令，如：
-```
+```json
 "scripts": {
     "createjson": "node start.js"
   }
 ```
+
+若你仅仅是想执行该工具的`i18nJsonConfig`方法，而无其他逻辑，如上述例子。则你可以不自己新建一个`js`文件，直接在在`package.json`里添加`npm script`命令，如：
+```json
+"scripts": {
+    "i18n-json": "i18n-json-generator"
+  }
+```
+命令名可以自定义，但是命令脚本得执行`i18n-json-generator`，该脚本命令是工具内置的。
 
 在任何不提供配置项的情况下，默认是在你的项目根目录下的`dist`文件夹里找所有`js`文件，然后从这些文件中提取词条生成json文件，生成目录是在项目根目录下的`lang`目录中（没有则自动新建），
 

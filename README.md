@@ -51,12 +51,20 @@ Create a js file that contains the following code
 const { i18nJsonConfig } = require('i18n-json-generator');
 i18nJsonConfig();
 ```
-Then add 'npm script' command to 'package.json', such as:
-```
+Then add `npm script` command to `package.json`, such as:
+```json
 "scripts": {
     "createjson": "node start.js"
   }
 ```
+
+If you just want to execute the tool's `i18nJsonConfig` method without any other logic, as in the example above. You can not create a new `js` file, directly in the `package.json` to add `npm script` command, such as:
+```json
+"scripts": {
+"i18n-json": "i18n-json-generator"
+}
+```
+The command name can be customized, but the command script executes `i18n-json-generator`, which is built into the tool.
 
 In any case that does not provide configuration items, the default is to find all the 'js' files in the' dist 'folder under the root directory of your project, and then extract the terms from these files to generate json files, the generated directory is in the' lang 'directory under the root directory of the project (if there is no new).
 
