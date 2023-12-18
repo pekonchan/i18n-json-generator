@@ -5,10 +5,14 @@
   "main": "lib/main.js",
   "scripts": {
     "example": "cd example && node start.js",
-    "example2": "cd example && node start.js --lang=en,ja --dir=i18n --entry=dist/**/test2.js --hanlder=$lang --localeName=zh-CN",
+    "example2": "cd example && node start.js --lang=en,ja --dir=i18n --entry=dist/**/test2.js --handler='$lang' --localeName=zh-CN",
     "i18n-json-generator": "cd example && i18n-json-generator"
   },
-  "keywords": ["i18n", "translation", "json"],
+  "keywords": [
+    "i18n",
+    "translation",
+    "json"
+  ],
   "author": "pekonchan",
   "bin": {
     "i18n-json-generator": "bin/start.js"
@@ -17,7 +21,7 @@
   "dependencies": {
     "@babel/parser": "^7.22.5",
     "@babel/traverse": "^7.22.5",
-    "glob": "^10.2.7",
+    "glob": "7.2.0",
     "minimist": "^1.2.8"
   }
 }
