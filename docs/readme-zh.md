@@ -81,7 +81,7 @@ i18nJsonConfig();
 在`package.json`里添加`npm script`命令，如：
 ```
 "scripts": {
-    "createjson": "node start.js --lang=en,ja --dir=i18n --entry=dist/**/test2.js --hanlder=$lang --localeName=zh-CN"
+    "createjson": "node start.js --lang=en,ja --dir=i18n --entry=dist/**/test2.js --handler='$lang' --localeName=zh-CN"
   }
 ```
 具体参数解释如下：
