@@ -7,12 +7,12 @@ Specify javascript files (can be multiple, can be all js files in a directory, e
 If you have written internationalization methods in your code, such as
 
 ```js
-// $t is the internationalization conversion function used to replace "你好世界" with each language
-const helloWord = $t('你好世界')
+// $t is the internationalization conversion function used to replace "HelloWorld" with each language
+const helloWord = $t('HelloWorld')
 ```
 Using this tool, you can extract the terms that need to be internationalized from all the '$t' methods in your code. The following rules are currently followed:
-- $t('你好世界') ：The first parameter is extracted as the key and value of the language configuration file
-- $t('你好{0}', [变量1, 变量2, ...]) ：The first parameter is extracted as the key and value of the language configuration file
+- $t('HelloWorld') ：The first parameter is extracted as the key and value of the language configuration file
+- $t('HelloWorld{0}', [variable1, variable2, ...]) ：The first parameter is extracted as the key and value of the language configuration file
 - $t(['hi', '嗨']) ：The first element of the first parameter array is extracted as the key of the language configuration file, and the second element as the corresponding value
 
 > The prerequisite for extracting the key above is that it must be a string. If the first parameter is a variable or a method, etc., it will not be extracted.
@@ -20,16 +20,16 @@ Using this tool, you can extract the terms that need to be internationalized fro
 Based on the above rules, the default generated local term configuration json file is:
 ```json
 {
-  "你好世界": "你好世界",
-  "你好{0}": "你好{0}",
+  "HelloWorld": "HelloWorld",
+  "HelloWorld{0}": "HelloWorld{0}",
   "hi": "嗨"
 }
 ```
 If you configure a language that requires internationalization, such as English or German, you will also copy the above json file (one for each language), but the value values are empty and need to be translated and supplemented.
 ```json
 {
-  "你好世界": "",
-  "你好{0}": "",
+  "HelloWorld": "",
+  "HelloWorld{0}": "",
   "hi": ""
 }
 ```
@@ -85,7 +85,7 @@ There are two ways to modify the default configuration
 Add 'npm script' to package.json, such as:
 ```
 "scripts": {
-    "createjson": "node start.js --lang=en,ja --dir=i18n --entry=dist/**/test2.js --hanlder=$lang --localeName=zh-CN"
+    "createjson": "node start.js --lang=en,ja --dir=i18n --entry=dist/**/test2.js --handler='$lang' --localeName=zh-CN"
   }
 ```
 The specific parameters are explained as follows:
